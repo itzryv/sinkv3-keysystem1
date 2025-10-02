@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SINKV3 - Get Key</title>
+    <style>
+        body { 
+            background: #0f0f19; 
+            color: white; 
+            text-align: center; 
+            padding: 50px; 
+            font-family: Arial;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: #1a1a2e;
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid #505078;
+        }
+        .btn {
+            background: #50b450;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 8px;
+            display: inline-block;
+            font-size: 18px;
+            margin: 20px;
+        }
+        .key {
+            font-size: 24px;
+            color: #00ff88;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        .timer {
+            color: #ffb450;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔫 SINKV3 KEY SYSTEM</h1>
+        <div id="content">
+            <a href="https://work.ink/25ge/on47ur0h" class="btn" id="taskBtn">
+                ✅ COMPLETE TASK TO GET KEY
+            </a>
+            <p>After task completion, return here with your verification code.</p>
+        </div>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const verified = urlParams.get('verified');
+        
+        if(verified === 'true') {
+            showKeyGenerator();
+        } else {
+            showTaskButton();
+        }
+
+        function showTaskButton() {
+            document.getElementById('content').innerHTML = `
+                <a href="https://work.ink/25ge/on47ur0h" class="btn" id="taskBtn">
+                    ✅ COMPLETE TASK TO GET KEY
+                </a>
+                <p>After completing task, you'll get your unique key.</p>
+            `;
+        }
+
+        function showKeyGenerator() {
+            const key = generateKey();
+            
+            document.getElementById('content').innerHTML = `
+                <h2>✅ TASK COMPLETED!</h2>
+                <div class="key">${key}</div>
+                <button class="btn" onclick="copyKey('${key}')">📋 COPY KEY</button>
+                <div class="timer">Key expires in 1.5 hours</div>
+                <p><small>Return to Roblox and use this key</small></p>
+            `;
+        }
+
+        function generateKey() {
+            const timeBlock = Math.floor(Date.now() / (90 * 60 * 1000));
+            const randomPart = Math.random().toString(36).substr(2, 8).toUpperCase();
+            return "SINKV3-" + timeBlock + "-" + randomPart;
+        }
+
+        function copyKey(key) {
+            navigator.clipboard.writeText(key);
+            alert('Key copied to clipboard!');
+        }
+
+        setInterval(() => {
+            if(Math.random() < 0.1) {
+                if(!document.referrer.includes('work.ink') && !window.location.href.includes('verified=true')) {
+                    window.location.href = "https://work.ink/25ge/on47ur0h";
+                }
+            }
+        }, 5000);
+    </script>
+</body>
+</html>
